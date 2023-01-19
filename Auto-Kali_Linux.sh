@@ -5,15 +5,13 @@
 
 apt install git            
 
-## Add aliases using nano text editor:
+## Append aliases using:
 
-nano ~/.bash_aliases
-
-alias ls='ls --color=always -rthla'
-
-alias apt-updater='sudo apt update && sudo apt dist-upgrade -Vy && sudo apt autoremove -y && sudo apt autoclean && sudo apt clean && sudo reboot'
+echo "alias ls='ls --color=always -rthla'" >> ~/.bash_aliases && 
+echo "alias apt-updater='sudo apt update && sudo apt dist-upgrade -Vy && sudo apt autoremove -y && sudo apt autoclean && sudo apt clean && sudo reboot'" >> ~/.bash_aliases
 
 ## close and reopen terminal before aliases will work ##
+## nano ~/.bash_aliases  << use this command to check your aliases (if ya want to)
 
 ## Create New Low-Privilege user ##   REPLACE "<username>" with... Ya, you get it.
 
@@ -41,23 +39,30 @@ git clone https://gitlab.gnome.org/GNOME/gedit.git
 
 install gedit 
 
-##  Download, unzip & install 'Visual Studio Code'
+##  Download & install 'Visual Studio Code'
 
-sudo git clone https://github.com/microsoft/vscode-docs.git
+## Download the Microsoft GPG key
 
-https://code.visualstudio.com/Download          
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 
-cd Downloads        ## Change Directory - Download Location
+## Add the Microsoft package repository
 
-tar -xf code_1.74.3-1673284829_amd64.deb.tar.xz         ## tar / unzipping DL
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
 
-sudo install ./code_1.74.3-1673284829_amd64.deb         ## install VS Code
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
+## Update apt and install Visual Studio Code
+
+sudo apt-get update
+
+sudo apt install code-oss
 
 ## Update all tools and Distro. Also Clean un-necessary Files and will restart Kali. You Should login with your new user
 
 sudo apt update && sudo apt dist-upgrade -Vy && sudo apt autoremove -y && sudo apt autoclean && sudo apt clean && sudo reboot     
 
 ## After Restart You have  a Fully Loaded and Fully Updated Kali Linux! Gratz!
+## Don't forget about your new aliases! apt-updater & ls 
 
         ##...Let's Go 'Ethically' Hack Some Fools...###
    
